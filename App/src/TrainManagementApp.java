@@ -1,13 +1,13 @@
 import java.util.ArrayList;
 import java.util.List;
 
-class GoodsBogie {
-    String type;
-    String cargo;
+class Bogie {
+    String name;
+    int capacity;
 
-    public GoodsBogie(String type, String cargo) {
-        this.type = type;
-        this.cargo = cargo;
+    public Bogie(String name, int capacity) {
+        this.name = name;
+        this.capacity = capacity;
     }
 }
 
@@ -17,24 +17,38 @@ public class TrainManagementApp {
 
         System.out.println("=== Train Consist Management App ===");
 
-        // Create goods bogie list
-        List<GoodsBogie> goodsBogies = new ArrayList<>();
+        List<Bogie> bogies = new ArrayList<>();
 
-        goodsBogies.add(new GoodsBogie("Cylindrical", "Petroleum"));
-        goodsBogies.add(new GoodsBogie("Box", "Food"));
-        goodsBogies.add(new GoodsBogie("Flat", "Vehicles"));
-
-        // Safety compliance check
-        boolean isSafe = goodsBogies.stream()
-                .allMatch(bogie ->
-                        !bogie.type.equals("Cylindrical")
-                                || bogie.cargo.equals("Petroleum"));
-
-        // Display result
-        if (isSafe) {
-            System.out.println("\nTrain is safety compliant.");
-        } else {
-            System.out.println("\nTrain is NOT safety compliant.");
+        // Create sample bogies
+        for (int i = 1; i <= 100000; i++) {
+            bogies.add(new Bogie("Bogie-" + i, i % 100));
         }
+
+        // Loop-based filtering
+        long loopStart = System.nanoTime();
+
+        List<Bogie> loopResult = new ArrayList<>();
+        for (Bogie bogie : bogies) {
+            if (bogie.capacity > 60) {
+                loopResult.add(bogie);
+            }
+        }
+
+        long loopEnd = System.nanoTime();
+        long loopTime = loopEnd - loopStart;
+
+        // Stream-based filtering
+        long streamStart = System.nanoTime();
+
+        List<Bogie> streamResult = bogies.stream()
+                .filter(b -> b.capacity > 60)
+                .toList();
+
+        long streamEnd = System.nanoTime();
+        long streamTime = streamEnd - streamStart;
+
+        // Display timing results
+        System.out.println("\nLoop Filtering Time   : " + loopTime + " ns");
+        System.out.println("Stream Filtering Time : " + streamTime + " ns");
     }
 }
