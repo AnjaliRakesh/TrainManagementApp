@@ -1,5 +1,4 @@
 import java.util.ArrayList;
-import java.util.Comparator;
 import java.util.List;
 
 class Bogie {
@@ -23,20 +22,23 @@ public class TrainManagementApp {
 
         System.out.println("=== Train Consist Management App ===");
 
-        // Create list of bogie objects
+        // Create list of bogies
         List<Bogie> bogies = new ArrayList<>();
 
         bogies.add(new Bogie("Sleeper", 72));
         bogies.add(new Bogie("AC Chair", 60));
         bogies.add(new Bogie("First Class", 24));
+        bogies.add(new Bogie("Luxury Cabin", 80));
 
-        // Sort bogies by capacity
-        bogies.sort(Comparator.comparingInt(bogie -> bogie.capacity));
+        // Filter bogies with capacity greater than 60
+        List<Bogie> filteredBogies = bogies.stream()
+                .filter(b -> b.capacity > 60)
+                .toList();
 
-        // Display sorted bogies
-        System.out.println("\nBogies Sorted by Capacity:");
+        // Display filtered bogies
+        System.out.println("\nPassenger Bogies with Capacity Greater Than 60:");
 
-        for (Bogie bogie : bogies) {
+        for (Bogie bogie : filteredBogies) {
             System.out.println(bogie);
         }
     }
