@@ -1,49 +1,41 @@
 class InvalidCapacityException extends Exception {
-
     public InvalidCapacityException(String message) {
         super(message);
     }
 }
 
 class PassengerBogie {
-    String name;
-    int capacity;
+    private String type;
+    private int capacity;
 
-    public PassengerBogie(String name, int capacity) throws InvalidCapacityException {
+    public PassengerBogie(String type, int capacity) throws InvalidCapacityException {
 
         if (capacity <= 0) {
-            throw new InvalidCapacityException(
-                    "Invalid capacity for bogie '" + name + "': " + capacity);
+            throw new InvalidCapacityException("Capacity must be greater than zero");
         }
 
-        this.name = name;
+        this.type = type;
         this.capacity = capacity;
     }
 
     @Override
     public String toString() {
-        return name + " - Capacity: " + capacity;
+        return "Passenger Bogie Type: " + type + ", Capacity: " + capacity;
     }
 }
 
-public class TrainManagementApp {
-
+public class Main {
     public static void main(String[] args) {
 
-        System.out.println("=== Train Consist Management App ===");
-
         try {
-            PassengerBogie sleeper = new PassengerBogie("Sleeper", 72);
-            System.out.println("\nCreated: " + sleeper);
+            PassengerBogie bogie1 = new PassengerBogie("Sleeper", 72);
+            System.out.println(bogie1);
 
-            // Invalid bogie example
-            PassengerBogie invalid = new PassengerBogie("Broken Coach", 0);
-            System.out.println("Created: " + invalid);
+            PassengerBogie bogie2 = new PassengerBogie("AC Chair", 0);
+            System.out.println(bogie2);
 
         } catch (InvalidCapacityException e) {
-            System.out.println("\nError: " + e.getMessage());
+            System.out.println("Error: " + e.getMessage());
         }
-
-        System.out.println("\nProgram continues safely.");
     }
 }
