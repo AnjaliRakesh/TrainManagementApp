@@ -2,6 +2,7 @@ public class TrainManagementApp {
 
     public static void main(String[] args) {
 
+        // Sorted bogie IDs
         String[] bogieIds = {
                 "BG101",
                 "BG205",
@@ -10,17 +11,28 @@ public class TrainManagementApp {
                 "BG518"
         };
 
-        String searchId = "BG309";
+        String searchId = "BG412";
+
+        int low = 0;
+        int high = bogieIds.length - 1;
         boolean found = false;
 
-        System.out.println("Searching for Bogie ID: " + searchId);
+        while (low <= high) {
 
-        for (int i = 0; i < bogieIds.length; i++) {
+            int mid = (low + high) / 2;
 
-            if (bogieIds[i].equals(searchId)) {
+            int result = searchId.compareTo(bogieIds[mid]);
+
+            if (result == 0) {
+                System.out.println("Bogie ID found at position " + mid);
                 found = true;
-                System.out.println("Bogie ID found at position " + i);
                 break;
+            }
+            else if (result < 0) {
+                high = mid - 1;
+            }
+            else {
+                low = mid + 1;
             }
         }
 
