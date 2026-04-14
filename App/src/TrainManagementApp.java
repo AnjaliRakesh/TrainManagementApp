@@ -1,23 +1,31 @@
-import java.util.Arrays;
-
 public class TrainManagementApp {
 
     public static void main(String[] args) {
 
-        String[] bogieTypes = {
-                "Sleeper",
-                "First Class",
-                "AC Chair",
-                "General",
-                "Luxury"
+        String[] bogieIds = {
+                "BG101",
+                "BG205",
+                "BG309",
+                "BG412",
+                "BG518"
         };
 
-        System.out.println("Before Sorting:");
-        System.out.println(Arrays.toString(bogieTypes));
+        String searchId = "BG309";
+        boolean found = false;
 
-        Arrays.sort(bogieTypes);
+        System.out.println("Searching for Bogie ID: " + searchId);
 
-        System.out.println("\nAfter Sorting:");
-        System.out.println(Arrays.toString(bogieTypes));
+        for (int i = 0; i < bogieIds.length; i++) {
+
+            if (bogieIds[i].equals(searchId)) {
+                found = true;
+                System.out.println("Bogie ID found at position " + i);
+                break;
+            }
+        }
+
+        if (!found) {
+            System.out.println("Bogie ID not found.");
+        }
     }
 }
